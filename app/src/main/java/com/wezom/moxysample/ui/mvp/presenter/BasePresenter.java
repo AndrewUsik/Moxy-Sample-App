@@ -7,27 +7,22 @@ import com.arellomobile.mvp.MvpView;
 import com.wezom.moxysample.ui.application.MoxySampleApplication;
 import com.wezom.moxysample.ui.di.component.ApplicationComponent;
 
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
-
-/**
- * Created: Zorin A.
- * Date: 16.11.2016.
- */
-
-abstract class BasePresenter<View extends MvpView> extends MvpPresenter<View> {
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 
-    private CompositeSubscription compositeSubscription = new CompositeSubscription();
 
-    protected void unsubscribeOnDestroy(@NonNull Subscription subscription) {
-        compositeSubscription.add(subscription);
+public class BasePresenter <View extends MvpView> extends MvpPresenter<View> {
+    CompositeDisposable disposables = new CompositeDisposable();
+
+    protected void unsubscribeOnDestroy(@NonNull Disposable disposable) {
+        disposables.add(disposable);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        compositeSubscription.clear();
+        disposables.clear();
     }
 
     ApplicationComponent getAppComponent() {

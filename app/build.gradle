@@ -1,12 +1,24 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'realm-android'
+
+def sdkVersion = 25
+
+def support = '25.0.1'
+def dagger = '2.7'
+def butterKnife = "8.4.0"
+def okHttp = '3.5.0'
+def retrofit = '2.1.0'
+def moxy = '1.2.1'
+def rx = '2.0.1'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "24.0.1"
+    compileSdkVersion sdkVersion
+    buildToolsVersion "$support"
     defaultConfig {
         applicationId "com.wezom.moxysample"
         minSdkVersion 17
-        targetSdkVersion 23
+        targetSdkVersion sdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -17,24 +29,54 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/rxjava.properties'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
 }
-
-def dagger = '2.7'
-def butterKnife = "8.4.0"
-def support = '23.4.0'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:$support"
     compile "com.android.support:design:$support"
 
-    compile 'com.arello-mobile:moxy:1.2.1'
-    compile 'com.arello-mobile:moxy-app-compat:1.2.1'
-    provided 'com.arello-mobile:moxy-compiler:1.2.1'
+    //Moxy
+    compile "com.arello-mobile:moxy:$moxy"
+    compile "com.arello-mobile:moxy-app-compat:$moxy"
+    provided "com.arello-mobile:moxy-compiler:$moxy"
 
-    compile "io.reactivex:rxjava:1.1.0"
-    compile "io.reactivex:rxandroid:1.1.0"
+    //Rx
+    compile "io.reactivex.rxjava2:rxjava:$rx"
+    compile "io.reactivex.rxjava2:rxandroid:$rx"
 
+    //Network
+    compile "com.squareup.okhttp3:okhttp:$okHttp"
+    compile "com.squareup.okhttp3:okhttp-urlconnection:$okHttp"
+    compile "com.squareup.okhttp3:logging-interceptor:$okHttp"
+
+    //Retrofit
+    compile "com.squareup.retrofit2:retrofit:$retrofit"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit"
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+
+    // Json parsing
+    compile 'com.google.code.gson:gson:2.4'
+
+    //ButterKnife and Dagger
     compile "com.jakewharton:butterknife:$butterKnife"
     compile "com.google.dagger:dagger:$dagger"
     provided "org.glassfish:javax.annotation:10.0-b28"
@@ -42,6 +84,9 @@ dependencies {
     annotationProcessor  "com.jakewharton:butterknife-compiler:$butterKnife"
     annotationProcessor  "com.google.dagger:dagger-compiler:$dagger"
 
+    //EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
 
+    //Timber
+    compile 'com.jakewharton.timber:timber:4.4.0'
 }

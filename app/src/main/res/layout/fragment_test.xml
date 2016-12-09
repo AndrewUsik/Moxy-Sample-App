@@ -10,7 +10,7 @@
         android:layout_gravity="center"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="TEST FRAGMENT"
+        android:text="@string/test_fragment"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
         android:textColor="@android:color/white"/>
 
@@ -19,5 +19,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:text="click"/>
+        android:text="@string/get_user_from_server"/>
 </FrameLayout>

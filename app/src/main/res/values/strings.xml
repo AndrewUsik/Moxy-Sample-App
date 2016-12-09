@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Moxy Sample</string>
+    <string name="get_user_from_server">get user from server</string>
+    <string name="test_fragment">TEST FRAGMENT</string>
 </resources>

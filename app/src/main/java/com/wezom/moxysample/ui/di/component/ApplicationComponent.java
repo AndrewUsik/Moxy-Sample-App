@@ -1,7 +1,10 @@
 package com.wezom.moxysample.ui.di.component;
 
+import com.wezom.moxysample.ui.data.DataManager;
+import com.wezom.moxysample.ui.di.modules.ApiModule;
 import com.wezom.moxysample.ui.di.modules.BusModule;
 import com.wezom.moxysample.ui.di.modules.ContextModule;
+import com.wezom.moxysample.ui.di.modules.DataModule;
 import com.wezom.moxysample.ui.mvp.presenter.HomeActivityPresenter;
 import com.wezom.moxysample.ui.mvp.presenter.TestFragmentPresenter;
 
@@ -15,7 +18,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {ContextModule.class, BusModule.class})
+@Component(modules = {ContextModule.class, BusModule.class, DataModule.class})
 public interface ApplicationComponent {
 
     void inject(HomeActivityPresenter homeActivityPresenter);

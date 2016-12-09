@@ -4,14 +4,13 @@ import android.app.Application;
 
 import com.wezom.moxysample.ui.di.component.ApplicationComponent;
 import com.wezom.moxysample.ui.di.component.DaggerApplicationComponent;
-import com.wezom.moxysample.ui.di.modules.ApplicationModule;
 import com.wezom.moxysample.ui.di.modules.BusModule;
 import com.wezom.moxysample.ui.di.modules.ContextModule;
+import com.wezom.moxysample.ui.di.modules.DataModule;
 
-/**
- * Created: Zorin A.
- * Date: 16.11.2016.
- */
+import io.realm.Realm;
+import timber.log.Timber;
+
 
 public class MoxySampleApplication extends Application {
     private static ApplicationComponent mApplicationComponent;
@@ -22,7 +21,9 @@ public class MoxySampleApplication extends Application {
 
     @Override
     public void onCreate() {
+        Realm.init(this);
         createApplicationComponent();
+        Timber.plant(new Timber.DebugTree());
         super.onCreate();
     }
 
@@ -30,6 +31,7 @@ public class MoxySampleApplication extends Application {
         mApplicationComponent = DaggerApplicationComponent.builder()
                 .contextModule(new ContextModule(this))
                 .busModule(new BusModule())
+                .dataModule(new DataModule())
                 .build();
     }
 }
